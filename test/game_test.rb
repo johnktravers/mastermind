@@ -60,25 +60,30 @@ class GameTest < Minitest::Test
     assert_equal expected, @game.instructions
   end
 
-  def prompt_turn
+  def test_prompt_turn
     expected = "Please enter a guess for your next turn. You can also enter 'q' to quit.\n> "
     assert_equal expected, @game.prompt_turn
   end
 
-  def guess_too_short
+  def test_guess_too_short
     expected = "Your guess is too short. Make sure it is four characters long.\n"
-    assert_equal expected, @game.prompt_turn
+    assert_equal expected, @game.guess_too_short
   end
 
-  def guess_too_long
+  def test_guess_too_long
     expected = "Your guess is too long. Make sure it is four characters long.\n"
-    assert_equal expected, @game.prompt_turn
+    assert_equal expected, @game.guess_too_long
   end
 
-  def cheat
+  def test_cheat
     @game.expects(:combo).returns('bgyy')
     expected = "This game's secret code is BGYY. Try again next time.\n\n"
     assert_equal expected, @game.cheat
+  end
+
+  def test_incorrect_feedback
+    @game.turns << Turn.new('yygb', 'rrgb')
+    expected = "RRGB has 2 of the correct elements with 2 in the correct positions\nYou've taken 1 guess(es)."
   end
 
 end
