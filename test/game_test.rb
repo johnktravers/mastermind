@@ -33,5 +33,9 @@ class GameTest < Minitest::Test
     assert_equal expected, @game.play
   end
 
+  def test_instructions
+    expected = "Mastermind is a color combination-guessing game.\nEach game starts with a hidden color combo made up of one to four colors: (r)ed, (g)reen, (b)lue, and (y)ellow.\nTake turns guessing the combo in the format 'rygb' until you get it right!\n\n"
+    assert_equal expected, @game.instructions
+  end
 
 end
