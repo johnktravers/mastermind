@@ -1,3 +1,5 @@
+require './lib/turn'
+
 class Game
   attr_reader :combo, :turns
 
