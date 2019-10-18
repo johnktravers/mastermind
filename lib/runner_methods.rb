@@ -20,8 +20,9 @@ def take_turn
   loop do
     prompt_turn_input
     if @input.length == 4
-      @game.check_guess(@input)
-      break
+      @game.add_turn(@input)
+      break if @game.check_guess
+      print @game.incorrect_feedback
     elsif @input == 'q'
       abort
     elsif @input == 'c'
