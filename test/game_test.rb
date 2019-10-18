@@ -38,4 +38,25 @@ class GameTest < Minitest::Test
     assert_equal expected, @game.instructions
   end
 
+  def prompt_turn
+    expected = "Please enter a guess for your next turn. You can also enter 'q' to quit.\n> "
+    assert_equal expected, @game.prompt_turn
+  end
+
+  def guess_too_short
+    expected = "Your guess is too short. Make sure it is four characters long.\n"
+    assert_equal expected, @game.prompt_turn
+  end
+
+  def guess_too_long
+    expected = "Your guess is too long. Make sure it is four characters long.\n"
+    assert_equal expected, @game.prompt_turn
+  end
+
+  def cheat
+    @game.stubs(:combo).expects('BGYY')
+    expected = "This game's secret code is #{@game.combo.upcase}. Try again next time.\n\n"
+    assert_equal expected, @game.cheat
+  end
+
 end

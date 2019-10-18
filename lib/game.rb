@@ -22,5 +22,20 @@ class Game
     "Mastermind is a color combination-guessing game.\nEach game starts with a hidden color combo made up of one to four colors: (r)ed, (g)reen, (b)lue, and (y)ellow.\nTake turns guessing the combo in the format 'rygb' until you get it right!\n\n"
   end
 
+  def prompt_turn
+    "Please enter a guess for your next turn. You can also enter 'q' to quit.\n> "
+  end
+
+  def guess_too_short
+    "Your guess is too short. Make sure it is four characters long.\n"
+  end
+
+  def guess_too_long
+    "Your guess is too long. Make sure it is four characters long.\n"
+  end
+
+  def cheat
+    "This game's secret code is #{@combo.upcase}. Try again next time.\n\n"
+  end
 
 end
