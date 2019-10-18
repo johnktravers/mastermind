@@ -10,6 +10,16 @@ class Game
     'rrrrggggbbbbyyyy'.split('').sample(4).join('')
   end
 
+  def add_turn(guess)
+    @turns << Turn.new(@combo, guess)
+  end
+
+  def check_guess
+    @turns.last.correct?
+  end
+
+  #-------------- Command Line Output Methods --------------#
+
   def start
     "Welcome to MASTERMIND\n\nWould you like to (p)lay, read the (i)nstructions, or (q)uit?\n> "
   end
@@ -36,6 +46,10 @@ class Game
 
   def cheat
     "This game's secret code is #{@combo.upcase}. Try again next time.\n\n"
+  end
+
+  def incorrect_feedback
+    "#{@turns.last.guess.upcase} has #{@turns.last.correct_elements} of the correct elements with #{@turns.last.correct_positions} in the correct positions\nYou've taken #{@turns.length} guess(es)."
   end
 
 end

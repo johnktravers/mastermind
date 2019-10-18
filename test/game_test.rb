@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'mocha/minitest'
 require './lib/game'
+require './lib/turn'
 
 class GameTest < Minitest::Test
 
@@ -21,6 +22,27 @@ class GameTest < Minitest::Test
   def test_new_combo
     assert_equal true, @game.new_combo.match?(/[rybg]/)
     assert_equal 4, @game.new_combo.length
+  end
+
+  def test_add_turn
+    @game.add_turn('bgrr')
+
+    assert_equal 1, @game.turns.length
+    assert_instance_of Turn, @game.turns.first
+
+    @game.add_turn('ryby')
+
+    assert_equal 2, @game.turns.length
+  end
+
+  def test_check_guess
+    @game.turns << Turn.new('yybg', 'rrgb')
+
+    assert_equal false, @game.check_guess
+
+    @game.turns << Turn.new('yybg', 'yybg')
+
+    assert_equal true, @game.check_guess
   end
 
   def test_start
@@ -54,8 +76,8 @@ class GameTest < Minitest::Test
   end
 
   def cheat
-    @game.stubs(:combo).expects('BGYY')
-    expected = "This game's secret code is #{@game.combo.upcase}. Try again next time.\n\n"
+    @game.expects(:combo).returns('bgyy')
+    expected = "This game's secret code is BGYY. Try again next time.\n\n"
     assert_equal expected, @game.cheat
   end
 
